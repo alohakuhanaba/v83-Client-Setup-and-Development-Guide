@@ -4,12 +4,13 @@
 **Table of Contents**
 
 - [Core setup](#Core-setup)
+- [End user safety](#End-user-safety)
 
 - [License](#license)
 
 <!-- markdown-toc end -->
 
-### Core setup
+### Core Setup
 This setup guide is for an open source v83 client patch designed to work with the most developed open source v83 server (currently cosmic)  
 
 This guide assumes you followed the server setup guide for your respective v83 server source up until the point you need the localhost/client. Instead of using the provided localhost, download the following:  
@@ -28,8 +29,18 @@ This guide assumes you followed the server setup guide for your respective v83 s
     - CashShop.img->base->backgrnd/backgrnd1/backgrnd2->replace with updated backgrnd/for explorers, cygnus, and aran
   - you also have to do this if using a different source, custom UI.wz, or if you want to play on a different resolution than one of the 4 listed (i added the black space into the frame using paint 3D)
   - Note: the game is playable using just the patch, but you would have to toggle the setting to CustomLoginFrame=false and it will look slightly uglier on the login screen (and medal will clip through the cash shop preview window)
+- download magpie from https://github.com/Blinue/Magpie    open magpie while game is running, click new profile and select your client window, then go to the created profile and toggle on auto scale when in foreground. make sure that window mode is on in the ezorsia config when doing this.
+  - magpie is a borderless fullscreener that interacts with directx to re-draw pixels into hi-resolution to match your display resolution. this way you can match the aspect ratio of your screen without the normal fullscreen stretching, keep the classic maple look playing in 1280x720, and avoid the scaled down UI elements that occur when a higher resolution is selected in ezorsia config
 
+### End User Safety
+This guide also aims to provide the safest possible setup for the end user so i think we should talk about this now. 
 
+virustotal analysis for hendi's 4g v83 client: https://www.virustotal.com/gui/file/1198fa57ca5a7c489bae43ec13c69681d9cabe0f96762f3dc0357facf2e7d4df
+- as you can see 25/71 (more than a third) of AVs detect it, but they are mostly generic/trojan detections which can trigger from modification of binaries as well as lack of official signing (this is still less than the detection ratio of commonly distributed v83 localhosts which range around 40-50/71 detection ratio)
+- hendi has also been very transparent in their release, including releasing the source of the tool used to remove old school themida as well as instructions and methods on how to do so as seen from the initial ragezone release
+- Therefore, i would say it is most likely safe however, i cannot guarantee the safety of cracked software, so it may be smart to consider virtualizating it
+- There are various OS-level virtualization solutions (or even system level virtualization solutions) you can employ. one such solution is sandboxie https://sandboxie-plus.com/ (i won't name which one i use for personal security reasons but the client setup works like a charm within virtualization)
+    -note: you don't have to virtualize magpie while doing this, it will still hook properly to the client
 
 
 ## License
