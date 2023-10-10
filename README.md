@@ -77,7 +77,10 @@ virustotal analysis for hendi's 4g v83 client: https://www.virustotal.com/gui/fi
      - you should conclude this part with the address of the start of the asm instructions(s) you want to change, and what you want to change it too. If you're changing a whole section of memory using code caving you also need the return address and the amount of bytes in between the initial address and return address for the NOP count (minimum 5)
 
        
-- 3. test the changes using the appropriate memory editting functions at the bottom of client.cpp; if doing code caves make sure to fill out the relevant information in the testing code cave in codecaves.h
+- 3. test the changes using the appropriate "testing" memory editing functions at the bottom of client.cpp; if doing code caves make sure to fill out the relevant information in the testing code cave in codecaves.h
+	- when directly editing memory at an address, you need to make sure the value you enter is appropriate for that part of memory or the game will crash on executing it, pay attention to how many bytes of space you have to work with after the initial offset from the beginning of an asm instruction. a single byte can only be 255 max
+	- when code caving you need try to add or modify instructions without affecting the existing instructions taken from the original location of the code cave, nor interferring with variables on the stack, in such a way that the application deems unacceptable.
+ 		- if it is crashing, try to do it gradually, for example, by copying the original instructions in the code cave completely, without any edits, and getting that to work. then making modifications and trying to get those to work
 - 4. compile the dll, replace old one, run the game, and test the changes; if the changes are correct, migrate the information from the line(s) used for testing into their own uniquely named lines of codes
 - note: these instructions may not be easily understood at first, and that's normal. you need a degree of understanding of what is going on before you can do it. so here are some tutorials that helped me along the way:
 ## License
