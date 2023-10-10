@@ -60,6 +60,11 @@ virustotal analysis for hendi's 4g v83 client: https://www.virustotal.com/gui/fi
     - note: i cannot guarantee the safety of cracked software, so it may be smart to consider virtualizating it
         - There are various OS-level virtualization solutions (or even system level virtualization solutions) you can employ. one such solution is sandboxie https://sandboxie-plus.com/ (i won't name which one i use for personal security reasons but the IDA works like a charm within virtualization)
 - A debugger to view the memory of an actively running client during testing, to see for example, if your codecaves are going to the places they should be going: https://github.com/x64dbg/x64dbg/releases (use x32dbg version)
+- data conversion tools online you should bookmark:
+	- dec/hex converter(i use this to verify hex values): https://www.mathsisfun.com/binary-decimal-hexadecimal-converter.html
+   	- x86 assembler/disassembler(i use this to convert hex instructions in memory dump to accurate asm commands; commented asm from the dump can't always be used right away in C++ inline):
+https://defuse.ca/online-x86-assembler.htm#disassembly
+	- IEEE 754 floating point converter (i use this to convert 64 bit values for things like damage cap): https://baseconvert.com/ieee-754-floating-point
 - you may need other tools along the way but this is the basics of what you will need
 
 ### How to further develop the client patch (the process)
