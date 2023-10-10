@@ -40,7 +40,7 @@ virustotal analysis for hendi's 4g v83 client: https://www.virustotal.com/gui/fi
 - hendi has also been very transparent in their release, including releasing the source of the tool used to remove old school themida as well as instructions and methods on how to do so as seen from the initial ragezone release
 - Therefore, i would say it is most likely safe however, i cannot guarantee the safety of cracked software, so it may be smart to consider virtualizating it
 - There are various OS-level virtualization solutions (or even system level virtualization solutions) you can employ. one such solution is sandboxie https://sandboxie-plus.com/ (i won't name which one i use for personal security reasons but the client setup works like a charm within virtualization)
-    -note: you don't have to virtualize magpie while doing this, it will still hook properly to the client
+    - note: you don't have to virtualize magpie while doing this, it will still hook properly to the client
 
 
 ## License
