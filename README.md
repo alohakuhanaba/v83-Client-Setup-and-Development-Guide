@@ -9,6 +9,7 @@
 - [Server related things that might help you](#Server-related-things-that-might-help-you)
 - [What you need to further develop the client patch](#What-you-need-to-further-develop-the-client-patch)
 - [How to further develop the client patch](#How-to-further-develop-the-client-patch)
+- [Tutorials for developing the client patch](#Tutorials-for-developing-the-client-patch)
 - [License](#license)
 
 <!-- markdown-toc end -->
@@ -81,8 +82,28 @@ virustotal analysis for hendi's 4g v83 client: https://www.virustotal.com/gui/fi
 	- when directly editing memory at an address, you need to make sure the value you enter is appropriate for that part of memory or the game will crash on executing it, pay attention to how many bytes of space you have to work with after the initial offset from the beginning of an asm instruction. a single byte can only be 255 max
 	- when code caving you need try to add or modify instructions without affecting the existing instructions taken from the original location of the code cave, nor interferring with variables on the stack, in such a way that the application deems unacceptable.
  		- if it is crashing, try to do it gradually, for example, by copying the original instructions in the code cave completely, without any edits, and getting that to work. then making modifications and trying to get those to work
+     	- you could also use function replacement to use the client's own functions in your own way, or to modify how the original function works if you don't need to make edits in the middle of a function; but i don't have much experience making this working in practice (see notes in source)
 - 4. compile the dll, replace old one, run the game, and test the changes; if the changes are correct, migrate the information from the line(s) used for testing into their own uniquely named lines of codes
 - note: these instructions may not be easily understood at first, and that's normal. you need a degree of understanding of what is going on before you can do it. so here are some tutorials that helped me along the way:
+
+### Tutorials for developing the client patch
+These are not in any particular order, though i've tried to put the more advanced ones on the bottom. You will likely have to jump back and forth between tutorials at occasionally review them to get a handle of what is happening.
+
+- IDA/IDB work and general guides:
+	- tutorial on how to use the v95 IDB with the v83 IDB to make edits (you can skip the strings part if using IDBs with existing enums ID'd): https://forum.ragezone.com/threads/getting-packet-structures-and-opcodes-with-ida-after-gms-new-update.872876/
+	- another one about IDA and the IDB: https://forum.ragezone.com/threads/how-to-use-ida-in-v83.1107216/
+	- another one (with example): https://forum.ragezone.com/threads/removing-a-check-in-the-maplestory-client-v83.1147791/
+- C++ tutorial for updating the dll code: https://www.kindsonthegenius.com/cplusplus/c-conditional-statements/
+- tutorial for what code caving is: https://www.codeproject.com/Articles/20240/The-Beginners-Guide-to-Codecaves
+- asm tutorials:
+	- teaches basics of how the stack works, the various registers, as well as instructions: https://www.cs.virginia.edu/~evans/cs216/guides/x86.html
+	- teaches instructions with examples: https://www.tutorialspoint.com/assembly_programming/assembly_logical_instructions.htm
+	- about movsd instruction: https://www.scs.stanford.edu/05au-cs240c/lab/i386/MOVS.htm
+	- another asm tutorial (havent enrolled in this one but it's been recommended before): https://p.ost2.fyi/courses/course-v1:OpenSecurityTraining2+Arch1001_x86-64_Asm+2021_v1/course/
+- eric's old tutorial videos that i haven't watched (but they are recommended): https://discord.com/channels/350831332609359875/939516633096015932/939517377136185374 and https://discord.com/channels/350831332609359875/939516633096015932/939525229359816786
+- calling conventions for function replacement and asm: https://en.m.wikibooks.org/wiki/X86_Disassembly/Calling_Conventions
+- example code for function replacement: https://forum.ragezone.com/threads/custom-string-pool.1148502/ and https://github.com/pokiuwu/AuthHook-v176-StringPool/blob/master/Client176/MapleHook.cpp
+
 ## License
 
 https://github.com/444Ro666/v83-Client-Setup-and-Development-Guide/blob/main/LICENSE
