@@ -7,6 +7,7 @@
 - [Core setup](#Core-setup)
 - [End user safety](#End-user-safety)
 - [Server related things that might help you](#Server-related-things-that-might-help-you)
+- [Disclosure before reading about the development process](#Disclosure-before-reading-about-the-development-process)
 - [What you need to further develop the client patch](#What-you-need-to-further-develop-the-client-patch)
 - [How to further develop the client patch](#How-to-further-develop-the-client-patch)
 - [Tutorials for developing the client patch](#Tutorials-for-developing-the-client-patch)
@@ -48,6 +49,9 @@ virustotal analysis for hendi's 4g v83 client: https://www.virustotal.com/gui/fi
 ### Server related things that might help you
 - when trying to set up MySQL Workbench to attach to the database server make sure to enter the parameters like this (assuming you are using cosmic) https://www.mediafire.com/view/iagchkgjqqvnaoe/connectguideUntitled.png/file (i got stuck on this part, so i recorded it and it might help others)
 - if you are using docker like i am, this guide might also help you as it helped me (contains commands you need): https://dingyunxing.github.io/tutorial/2021/10/07/mysql-docker/
+
+## Disclosure before reading about the development process
+The following advice about how to use the tools and edit the client is just from what i've learned over the one month that i have joined the scene and have started working with the client. I have a bit of programming experience but had no experience with C++ prior, nor had any experience with asm or reverse engineering. There may very well be better ways to do things and even my own process is in a constant state of change. This is so far, just what i've managed to scrape together, been taught here and there when folks were feeling generous, and what i've found at the time of writing to have successfully worked. I hope it helps, but always be ready to learn more!
 
 ### What you need to further develop the client patch
 - To compile the dll yourself, you need visual studio 2019 https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&channel=Release&version=VS2022&source=VSLandingPage&cid=3333&passive=false
