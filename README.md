@@ -59,6 +59,7 @@ virustotal analysis for hendi's 4g v83 client: https://www.virustotal.com/gui/fi
 - IDA 7.0 to view the dumped memory: https://rutracker.org/forum/viewtopic.php?t=5459068 (you dont need whole thing, just the version specific to your os. can also get 7.7 in useful links in maple development discord but newer versions of IDA may not be able to read older IDB files)
     - note: i cannot guarantee the safety of cracked software, so it may be smart to consider virtualizating it
         - There are various OS-level virtualization solutions (or even system level virtualization solutions) you can employ. one such solution is sandboxie https://sandboxie-plus.com/ (i won't name which one i use for personal security reasons but the IDA works like a charm within virtualization)
+- A debugger to view the memory of an actively running client during testing, to see for example, if your codecaves are going to the places they should be going: https://github.com/x64dbg/x64dbg/releases (use x32dbg version)
 - you may need other tools along the way but this is the basics of what you will need
 
 ### How to further develop the client patch (the process)
@@ -82,12 +83,12 @@ virustotal analysis for hendi's 4g v83 client: https://www.virustotal.com/gui/fi
 	- when directly editing memory at an address, you need to make sure the value you enter is appropriate for that part of memory or the game will crash on executing it, pay attention to how many bytes of space you have to work with after the initial offset from the beginning of an asm instruction. a single byte can only be 255 max
 	- when code caving you need try to add or modify instructions without affecting the existing instructions taken from the original location of the code cave, nor interferring with variables on the stack, in such a way that the application deems unacceptable.
  		- if it is crashing, try to do it gradually, for example, by copying the original instructions in the code cave completely, without any edits, and getting that to work. then making modifications and trying to get those to work
-     	- you could also use function replacement to use the client's own functions in your own way, or to modify how the original function works if you don't need to make edits in the middle of a function; but i don't have much experience making this working in practice (see notes in source)
+   - you could also use function replacement to use the client's own functions in your own way, or to modify how the original function works if you don't need to make edits in the middle of a function; but i don't have much experience making this working in practice (see notes in source)
 - 4. compile the dll, replace old one, run the game, and test the changes; if the changes are correct, migrate the information from the line(s) used for testing into their own uniquely named lines of codes
 - note: these instructions may not be easily understood at first, and that's normal. you need a degree of understanding of what is going on before you can do it. so here are some tutorials that helped me along the way:
 
 ### Tutorials for developing the client patch
-These are not in any particular order, though i've tried to put the more advanced ones on the bottom. You will likely have to jump back and forth between tutorials at occasionally review them to get a handle of what is happening.
+These are not in any particular order, though i've tried to put the more advanced ones on the bottom. You will likely have to jump back and forth between tutorials and occasionally restudy them to get a handle of what is happening.
 
 - IDA/IDB work and general guides:
 	- tutorial on how to use the v95 IDB with the v83 IDB to make edits (you can skip the strings part if using IDBs with existing enums ID'd): https://forum.ragezone.com/threads/getting-packet-structures-and-opcodes-with-ida-after-gms-new-update.872876/
