@@ -3,9 +3,12 @@
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
 
+
 - [Core setup](#Core-setup)
 - [End user safety](#End-user-safety)
-
+- [Server related things that might help you](#Server-related-things-that-might-help-you)
+- [What you need to further develop the client patch](#What-you-need-to-further-develop-the-client-patch)
+- [How to further develop the client patch](#How-to-further-develop-the-client-patch)
 - [License](#license)
 
 <!-- markdown-toc end -->
@@ -40,9 +43,43 @@ virustotal analysis for hendi's 4g v83 client: https://www.virustotal.com/gui/fi
 - hendi has also been very transparent in their release, including releasing the source of the tool used to remove old school themida as well as instructions and methods on how to do so as seen from the initial ragezone release
 - Therefore, i would say it is most likely safe however, i cannot guarantee the safety of cracked software, so it may be smart to consider virtualizating it
 - There are various OS-level virtualization solutions (or even system level virtualization solutions) you can employ. one such solution is sandboxie https://sandboxie-plus.com/ (i won't name which one i use for personal security reasons but the client setup works like a charm within virtualization)
-    - note: you don't have to virtualize magpie while doing this, it will still hook properly to the client
 
+### Server related things that might help you
+- when trying to set up MySQL Workbench to attach to the database server make sure to enter the parameters like this (assuming you are using cosmic) https://www.mediafire.com/view/iagchkgjqqvnaoe/connectguideUntitled.png/file (i got stuck on this part, so i recorded it and it might help others)
+- if you are using docker like i am, this guide might also help you as it helped me (contains commands you need): https://dingyunxing.github.io/tutorial/2021/10/07/mysql-docker/
 
+### What you need to further develop the client patch
+- To compile the dll yourself, you need visual studio 2019 https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&channel=Release&version=VS2022&source=VSLandingPage&cid=3333&passive=false
+- you need the source code of the ezorsia v2 dll found at: https://github.com/444Ro666/MapleEzorsia-v2
+- you need memory dumps of the client to find addresses in and to inspect the client's mechanisms of operation:
+    - angel's v83 IDB release: https://forum.ragezone.com/threads/v83-idb-client-edit-dump.1193418/
+    - angel's v95 IDB release: https://discord.com/channels/350831332609359875/1051899319491506298/1125628734347690065
+      - if it becomes unavailable you'll have to do your v95 IDB own using original v95 leak from: https://forum.ragezone.com/threads/getting-packet-structures-and-opcodes-with-ida-after-gms-new-update.872876/ or    https://discord.com/channels/350831332609359875/939516633096015932/1147747196951859261
+- IDA 7.0 to view the dumped memory: https://rutracker.org/forum/viewtopic.php?t=5459068 (you dont need whole thing, just the version specific to your os. can also get 7.7 in useful links in maple development discord but newer versions of IDA may not be able to read older IDB files)
+    - note: i cannot guarantee the safety of cracked software, so it may be smart to consider virtualizating it
+        - There are various OS-level virtualization solutions (or even system level virtualization solutions) you can employ. one such solution is sandboxie https://sandboxie-plus.com/ (i won't name which one i use for personal security reasons but the IDA works like a charm within virtualization)
+- you may need other tools along the way but this is the basics of what you will need
+
+### How to further develop the client patch (the process)
+- 1. find a lead to the area of the binary's memory you need to work with to affect the change. To do this you can:
+	- find relevant functions using functions area in the fully named v95 IDB
+         - you'll need to look for a area with similar functionality in v83 dump later if taking this approach but it can help verify a lot of things and the pseudocode generated in the leaked IDB is often easier to read
+	- or use stringpool(enums) to find a related area in memory dump (to find the related string you need to look through wz files)
+	- or use an existing address that affects what you're trying to change and looking in the same area
+
+   
+- 2. look through the asm in the area you identified in step 1 and use F5 to turn it into pseudocode, can right click in IDA view or pseudocode to synchronize and go to the exact spot in the other one, or look at the bottom left bar that shows which address the cursor in pseudocode is at
+	- try to figure out how it works and what you may need to change
+	  - knowledge of procedural programming is very helpful here, as the pseudocode goes from top to bottom with v# values often being called and defined out of thin air
+	    - can also right click the function name of subroutines and click list cross-references to and from to see what other subroutines work with it; this sometimes works to find related areas but not all the time
+	    - can also find more information with xrefs but i don't have much experience doing that
+	    - try to find the constructor of the function (for example CUIScreenMsg::CUIScreenMsg(CUIScreenMsg *this), constructors are the one that call itself), a lot of stuff is initialized there
+     - you should conclude this part with the address of the start of the asm instructions(s) you want to change, and what you want to change it too. If you're changing a whole section of memory using code caving you also need the return address and the amount of bytes in between the initial address and return address for the NOP count (minimum 5)
+
+       
+- 3. test the changes using the appropriate memory editting functions at the bottom of client.cpp; if doing code caves make sure to fill out the relevant information in the testing code cave in codecaves.h
+- 4. compile the dll, replace old one, run the game, and test the changes; if the changes are correct, migrate the information from the line(s) used for testing into their own uniquely named lines of codes
+- note: these instructions may not be easily understood at first, and that's normal. you need a degree of understanding of what is going on before you can do it. so here are some tutorials that helped me along the way:
 ## License
 
 https://github.com/444Ro666/v83-Client-Setup-and-Development-Guide/blob/main/LICENSE
