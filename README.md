@@ -1,4 +1,4 @@
-# v83 Client Setup and Development Guide for HD monitors
+# v83 Client Setup and Development Guide for modern HD monitors
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
